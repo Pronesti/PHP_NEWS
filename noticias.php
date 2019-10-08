@@ -39,6 +39,8 @@
                         <p><?=$rowsdos["noticia"]?></p>
                         <h4><?=$rowsdos["tema"]?></h4>
                         <h4><?=$rowsdos["escritor"]?></h4>
+                        <a href="editar_noticia.php?id=<?=$rowsdos['id']?>">editar</a>
+                        <a href="eliminar_noticia.php?id=<?=$rowsdos['id']?>">eliminar</a>
                     </article>
                 <?php }?>
     </div>

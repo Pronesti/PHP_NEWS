@@ -38,6 +38,8 @@
                         <td><?=$rows["nombre"]?></td>
                         <td><?=$rows["edad"]?></td>
                         <td><?=$rows["cant_publi"]?></td>
+                        <td><a href="editar_escritor.php?id=<?=$rows['id']?>">editar</a></td>
+                        <td><a href="eliminar_escritor.php?id=<?=$rows['id']?>">eliminar</a></td>
                     </tr>
                 <?php }?>
             </table>

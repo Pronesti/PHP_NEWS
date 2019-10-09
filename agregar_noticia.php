@@ -33,18 +33,17 @@
     </ul>
   </div>
 </nav>
-<div class="card m-3">
+<div class="card m-3 p-2">
+<form method="post" name="agregar_noticias" method="POST" action="agregar_noticia.php">
 <div class="form-group">
     <label for="input_usuario">Usuario</label>
-    <input type="usuario" name="usuario" class="form-control" aria-describedby="usuarioHelp" placeholder="Enter usuario">
+    <input type="text" name="usuario" class="form-control">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Contraseña</label>
-    <input type="password" name="password" class="form-control"placeholder="Password">
+    <input type="password" name="password" class="form-control">
   </div>
-</div>
-<div class="card m-3">
-<form method="post" name="agregar_noticias" method="POST" action="agregar_noticia.php">
+  <hr>
     <label>Titulo:</label>
     <input name="titulo" type="text" class="form-control"><br>
     <label>Subtitulo:</label>
@@ -84,10 +83,13 @@ catch (PDOException $e) {
 
         if(isset($_POST["submit"])){
             try{
-              $auth_query = "SELECT * FROM auth WHERE usuario = '".$_POST['usuario']."' && password = '".$_POST['password']."'"; 
+              $auth_query = "SELECT * FROM auth WHERE usuario = '".$_POST['usuario']."' AND password = '".$_POST['password']."'"; 
               echo $auth_query;
-        $auth = $con->query($auth_query);  
-          if($auth){
+        $auth = false;
+        $auth = $con->query($auth_query);
+        var_dump($auth);
+        var_dump($auth->rowCount() < 0);  
+          if($auth->rowCount() < 0){
                 $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); // <== add this line
                 $con->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
             $submitnoticia = "INSERT INTO noticias (titulo, subtitulo, fecha, noticia, tema, escritor) 

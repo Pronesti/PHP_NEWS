@@ -21,19 +21,22 @@
         print "¡Error conexion base de datos!: " . $e->getMessage();
         die();
   } 
+$id_escritor = $_GET["id"];
+$get_escritor = "SELECT * FROM escritores WHERE id=$id_escritor;";
+$escritor = $con->query($get_escritor); 
   ?>
 <div>
 <a href="/agregar_escritor.php">Agregar escritor</a>
 <a href="/index.php">Volver</a>
-        <h1>Escritores</h1>
+        <h1>Escritor</h1>
         <?php
         $query = "SELECT * FROM escritores;";
         $resultado = $con->query($query);              
         ?>   
             <table border="1">
-                <?php foreach ( $resultado as $rows) {?>
+                <?php foreach ( $escritor as $rows) {?>
                     <tr>
-                        <td><a href="escritor.php?id=<?=$rows['id']?>"><?=$rows["id"]?></a></td>
+                        <td><?=$rows["id"]?></td>
                         <td><?=$rows["apellido"]?></td>
                         <td><?=$rows["nombre"]?></td>
                         <td><?=$rows["edad"]?></td>

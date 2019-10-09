@@ -37,8 +37,8 @@ foreach ($escritor as $rows) {
 <?php
     if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['delete']))
     {
-        $delete_escritor_query = "DELETE * FROM escritores WHERE id=$id_escritor;";
-        $delete_escritor = $con->query($delete_escritor_query); 
+        $delete_escritor_query = "DELETE FROM escritores WHERE id=$id_escritor;";
+        $delete_escritor = $con->query($delete_escritor_query);
     }
 ?>
 </body>

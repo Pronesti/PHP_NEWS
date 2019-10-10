@@ -31,6 +31,12 @@ $get_cantidad_publicaciones = "SELECT COUNT(id) FROM noticias WHERE escritor=$id
 $query_cantidad_publicaciones = $con->query($get_cantidad_publicaciones);
 $cantidad_publicaciones = $query_cantidad_publicaciones->fetch(PDO::FETCH_NUM);
 $cantidad_publicaciones = (implode($cantidad_publicaciones));
+$query_ultima_publicacion = "SELECT * FROM noticias WHERE escritor=$id_escritor  ORDER BY fecha DESC LIMIT 1";
+$ultima_publicacion = $con->query($query_ultima_publicacion);
+$id_ultima_publicacion = 1;
+foreach($ultima_publicacion as $rows){
+  $id_ultima_publicacion = $rows['id'];
+};
   ?>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">CRUD PHP</a>
@@ -59,7 +65,6 @@ $cantidad_publicaciones = (implode($cantidad_publicaciones));
 </nav>
 <div>
         <h1>Escritor</h1>  
-            <table border="1">
                 <?php foreach ( $escritor as $rows) {?>
 
                     <div class="card" style="width: 18rem;">
@@ -69,6 +74,7 @@ $cantidad_publicaciones = (implode($cantidad_publicaciones));
   <ul class="list-group list-group-flush">
     <li class="list-group-item">Edad: <?=$rows["edad"]?></li>
     <li class="list-group-item">Publicaciones: <?=$cantidad_publicaciones?></li>
+    <li class="list-group-item">Ultima: <a href="noticia.php?id=<?=$id_ultima_publicacion?>">Link</a></li>
     <li class="list-group-item"><a href="editar_escritor.php?id=<?=$rows['id']?>" class="btn btn-warning">editar</a>
                         <a href="eliminar_escritor.php?id=<?=$rows['id']?>" class="btn btn-danger">eliminar</a></li>
 
@@ -80,7 +86,7 @@ $cantidad_publicaciones = (implode($cantidad_publicaciones));
 <hr>
 <h3>Publicaciones de <?=$rows["nombre"]?> <?=$rows["apellido"]?>:</h3>
 <?php foreach ( $publicaciones as $rowsdos) {?>
-    <div class="card m-3" style="max-width: 18rem;">
+    <div class="card m-3" style="max-width: 50rem;">
   <div class="card-body">
     <h5 class="card-title"><?=$rowsdos["titulo"]?></h5>
     <h6 class="card-subtitle mb-2 text-muted"><?=$rowsdos["subtitulo"]?></h6>

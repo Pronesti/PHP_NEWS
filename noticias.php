@@ -55,7 +55,7 @@
         ?>   
                 <?php foreach ( $resultadodos as $rowsdos) {?>
 
-                    <div class="card m-3" style="max-width: 18rem;">
+                    <div class="card m-3" style="max-width: 50rem;">
   <div class="card-body">
     <h5 class="card-title"><?=$rowsdos["titulo"]?></h5>
     <h6 class="card-subtitle mb-2 text-muted"><?=$rowsdos["subtitulo"]?></h6>

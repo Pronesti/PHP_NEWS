@@ -50,23 +50,25 @@
   </div>
 </nav>
 <div>
-    <h1>Noticia</h1>
     <?php
         $querydos = "SELECT * FROM noticias WHERE ID=$id_noticia;";
         $resultadodos = $con->query($querydos);              
         ?>   
                 <?php foreach ( $resultadodos as $rowsdos) {?>
-                <hr>
-                    <article>
-                        <h1><?=$rowsdos["titulo"]?></h1>
-                        <h3><?=$rowsdos["subtitulo"]?></h3>
-                        <h4><?=$rowsdos["fecha"]?></h4>
-                        <p><?=$rowsdos["noticia"]?></p>
-                        <h4><?=$rowsdos["tema"]?></h4>
-                        <h4><?=$rowsdos["escritor"]?></h4>
-                        <a href="editar_noticia.php?id=<?=$rowsdos['id']?>" class="btn btn-warning">editar</a>
-                        <a href="eliminar_noticia.php?id=<?=$rowsdos['id']?>" class="btn btn-danger">eliminar</a>
-                    </article>
+                  <div class="card m-3" style="max-width: 50rem;">
+  <div class="card-body">
+    <h5 class="card-title"><?=$rowsdos["titulo"]?></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><?=$rowsdos["subtitulo"]?></h6>
+    <p class="card-text"><?=$rowsdos["noticia"]?></p>
+    <ul class="list-group list-group-flush m-3">
+    <li class="list-group-item">Tema: <?=$rowsdos["tema"]?></li>
+    <li class="list-group-item">Fecha: <?=$rowsdos["fecha"]?></li>
+    <li class="list-group-item">Escritor: <?=$rowsdos["escritor"]?></li>
+  </ul>
+    <a href="editar_noticia.php?id=<?=$rowsdos['id']?>" class="btn btn-warning">editar</a>
+    <a href="eliminar_noticia.php?id=<?=$rowsdos['id']?>" class="btn btn-danger">eliminar</a>
+  </div>
+</div>
                 <?php }?>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

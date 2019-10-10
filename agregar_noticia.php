@@ -41,7 +41,7 @@
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Contraseña</label>
-    <input type="password" name="password" class="form-control">
+    <input type="password" name="clave" class="form-control">
   </div>
   <hr>
     <label>Titulo:</label>
@@ -51,7 +51,7 @@
     <label>Fecha:</label>
     <input name="fecha" type="date" class="form-control"><br>
     <label>Noticia:</label>
-    <input name="noticia" type="text" class="form-control"><br>
+    <textarea name="noticia" type="text" class="form-control"></textarea><br>
     <label>Tema:</label>
     <input name="tema" type="text" class="form-control"><br>
     <label>Escritor:</label>
@@ -83,13 +83,9 @@ catch (PDOException $e) {
 
         if(isset($_POST["submit"])){
             try{
-              $auth_query = "SELECT * FROM auth WHERE usuario = '".$_POST['usuario']."' AND password = '".$_POST['password']."'"; 
-              echo $auth_query;
-        $auth = false;
-        $auth = $con->query($auth_query);
-        var_dump($auth);
-        var_dump($auth->rowCount() < 0);  
-          if($auth->rowCount() < 0){
+              $auth_query = "SELECT * FROM auth WHERE usuario = '".$_POST['usuario']."' AND clave = '".$_POST['clave']."'"; 
+              $auth = $con->query($auth_query)->fetchObject();
+          if($auth){
                 $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); // <== add this line
                 $con->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
             $submitnoticia = "INSERT INTO noticias (titulo, subtitulo, fecha, noticia, tema, escritor) 
@@ -103,11 +99,13 @@ catch (PDOException $e) {
             );";
             if ($con->query($submitnoticia)) {
                 header('Location: noticias.php', true, 302);
-                echo "<script type= 'text/javascript'>alert('New Record Inserted Successfully');</script>";
                 }
                 else{
                 echo "<script type= 'text/javascript'>alert('Data not successfully Inserted.');</script>";
-                }} 
+                };
+              }else{
+                  echo "<script type= 'text/javascript'>alert('Failed Authentication');</script>";
+                }; 
             }catch(PDOException $e)
             {
                 echo $e->getMessage();

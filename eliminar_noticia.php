@@ -62,21 +62,22 @@ foreach ($noticia as $rows) {
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Contraseña</label>
-    <input type="password" name="password" class="form-control">
+    <input type="password" name="clave" class="form-control">
   </div>
     <input type="submit" name="delete" value="Si" class="btn btn-warning"/><a href="noticias.php" class="btn btn-danger"> Cancelar </a>
 </form>
 <?php
     if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['delete']))
     {
-        $auth_query = "SELECT * FROM auth WHERE usuario = '".$_POST['usuario']."' AND password = '".$_POST['password']."'"; 
-        $auth = false;
-        $auth = $con->query($auth_query);  
+      $auth_query = "SELECT * FROM auth WHERE usuario = '".$_POST['usuario']."' AND clave = '".$_POST['clave']."'"; 
+      $auth = $con->query($auth_query)->fetchObject();
         if($auth){
          $delete_noticia_query = "DELETE FROM noticias WHERE id=$id_noticia;";
         $delete_noticia = $con->query($delete_noticia_query);
         header('Location: noticias.php', true, 302);   
-        }
+        }else{
+          echo "<script type= 'text/javascript'>alert('Failed Authentication');</script>";
+        };
         
     }
 ?>
